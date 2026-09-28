@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS sports_cms
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE sports_cms;
+
+CREATE TABLE admins (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('super_admin', 'admin') NOT NULL DEFAULT 'admin',
+    status TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO admins (name, email, password, role)
+VALUES (
+    'Super Admin',
+    'admin@sports.com',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEaXQj8gK3Z9QqQJ5kGxGZQ7GQ2',
+    'super_admin'
+);
+
+CREATE TABLE settings (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    setting_key VARCHAR(100) NOT NULL UNIQUE,
+    setting_value TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
